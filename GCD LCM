@@ -1,0 +1,34 @@
+https://www.codechef.com/problems/FLOW016
+
+#include <stdio.h>
+int gcd(int a,int b);
+int main(void) {
+	// your code goes here
+	int t;
+	scanf("%d",&t);
+	while(t--)
+	{	
+		int a,b;
+		scanf("%d%d",&a,&b);
+		int g,l,n,n2;
+		n=a;n2=b;
+		if(a>b)
+		{g=gcd(a,b);
+		}
+		else{g=gcd(b,a);
+		}
+		l=(n*n2)/g;
+		printf("%d %d\n",g,l);
+	}
+
+	return 0;
+}
+int gcd(int a,int b)
+{
+	int rem=a%b;
+	a=b;
+	b=rem;
+	if(b==0)
+	{return a;}
+	else{gcd(a,b);}
+}
