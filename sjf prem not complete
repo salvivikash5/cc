@@ -1,0 +1,120 @@
+/* package whatever; // don't place package name! */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Ideone
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		int n;
+		Ideone id=new Ideone();
+		Scanner sc=new Scanner(System.in);
+	//	System.out.println("Enter number of process ");
+		n=sc.nextInt();
+		int bt[]=new int[n];
+		int at[]=new int[n];
+		//System.out.println("Enter burst time of each process: ");
+		for(int i=0;i<n;i++)
+		{
+			bt[i]=sc.nextInt();
+		}
+	//	System.out.println("ENter arrival time of each process : ");
+		for(int i=0;i<n;i++)
+		{
+			at[i]=sc.nextInt();
+		}
+		id.sort(bt,at,n);
+		id.findsort(bt,at,n);
+
+	}
+	void findsort(int[] bt,int[] at,int n)
+	{
+		int sum=0;for(int i=0;i<n;i++)
+		{
+			sum+=bt[i];
+		}
+		sum-=n;
+		int readyqueue[]=new int[sum];
+		int timingqueue[]=new int[sum];
+		int j;
+		readyqueue[0]=bt[0]-1;
+		bt[0]-=1;
+		timingqueue[0]=1;
+		
+	}
+	void mainprocess(int[] bt,int[] at,int n)
+	{	int tm;
+		for(int i=1;i<sum;i++)
+		{	
+			if(timingqueue[i-1]>=at[j])
+				{
+					readyqueue[i]=bt[j]-1;
+					bt[j]-=1;
+					timingqueue[i]=timingqueue[i-1]+1;
+					tm=timingqueue[i];
+				}
+				j=id.shortprocess(bt,at,n,tm);
+		}
+		for(int i=0;i<n;i++)
+		{
+			System.out.println(readyqueue[i] +" " +timingqueue[i]);
+		}
+	}
+	int shortprocess(int[] bt,int[] at,int n,int tm;)
+	{
+		int j;
+		for(int i=0;i<n;i++)
+		{
+			if(at[i]<=tm)
+			{
+				j=i;
+			}
+		}
+		return j;
+	}
+	void sort(int[] bt,int[] at,int n)
+	{
+		int temp,temp1,sat,bat;
+		sat=bt[0];
+		int sat1=bt[0];
+		int bat1=at[0];
+		int t1,t2;
+		for(int i=0;i<n;i++)
+		{	for(int j=0;j<n;j++)
+			{
+			if(at[i]==0)
+			{
+							t1=at[j];
+							t2=bt[j];
+							at[j]=at[i];
+							bt[j]=bt[i];
+							at[i]=t1;
+							bt[i]=t2;
+			}
+		}
+		}
+		}
+		for(int i=1;i<n;i++)
+		{
+			for(int j=1;j<n;j++)
+				{
+					if(at[i]<at[j])
+						{   temp1=at[j];
+							temp=bt[j];
+							at[j]=at[i];
+							bt[j]=bt[i];
+							at[i]=temp1;
+							bt[i]=temp;
+						}
+						}
+		}
+		for(int i=0;i<n;i++)
+		{
+			System.out.println(bt[i] + " " + at[i]);
+		}
+}
+
+}
