@@ -1,0 +1,160 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Ideone
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		int n;
+		Ideone id=new Ideone();
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter number of process ");
+		n=sc.nextInt();
+		int bt[]=new int[n];
+		int at[]=new int[n];
+			String process[]=new String[n];
+		for( int i=0;i<n;i++)
+		{
+				process[i]="P"+i;	
+		}
+		System.out.println("Enter burst time of each process: ");
+		for(int i=0;i<n;i++)
+		{
+			bt[i]=sc.nextInt();
+		}
+		System.out.println("ENter arrival time of each process : ");
+		for(int i=0;i<n;i++)
+		{
+			at[i]=sc.nextInt();
+		}
+		id.sort(bt,at,n,process);
+		id.findsort(bt,at,n,process);
+
+	}
+	void findsort(int[] bt,int[] at,int n,String[] process)
+	{
+		int sum=0;for(int i=0;i<n;i++)
+		{
+			sum+=bt[i];
+		}
+	
+		process[0]=process[0];
+		int readyqueue[]=new int[sum];
+		int timingqueue[]=new int[sum];
+		String processqueue[]=new String[sum];
+		readyqueue[0]=bt[0]-1;
+		bt[0]-=1;
+		timingqueue[0]=1;
+		processqueue[0]=process[0];
+		Ideone id=new Ideone();
+		id.mainprocess(bt,at,n,timingqueue,readyqueue,sum,process,processqueue);
+		
+	}
+	void mainprocess(int[] bt,int[] at,int n,int[] timingqueue,int[] readyqueue,int sum,String[] process,String processqueue[])
+	{	int tm=1;
+		int awtkaliya[]=new int[n];
+		awtkaliya[0]=1;
+		int j;
+		Ideone id=new Ideone();
+		for(int i=1;i<sum;i++)
+		{	
+			j=id.shortprocess(bt,at,n,tm,awtkaliya);
+			if(timingqueue[i-1]>=at[j])
+				{
+					readyqueue[i]=bt[j]-1;
+					bt[j]-=1;
+					timingqueue[i]=timingqueue[i-1]+1;
+					tm=timingqueue[i];
+					processqueue[i]=process[j];
+					awtkaliya[j]+=1;
+				}
+				
+		}
+		System.out.println("Gantt Chart is:");
+		for(int i=0;i<sum;i++)
+		{
+			System.out.print("["+processqueue[i]+"]"+ " ");
+		}
+		System.out.println();
+		int awtminus=0,awtplus=0;
+		for(int i=0;i<n;i++)
+		{
+			awtminus+=awtkaliya[i];System.out.println(awtkaliya[i]);
+		}
+		for(int i=0;i<sum;i++)
+		{awtplus=awtplus+timingqueue[i];
+		}
+		float awt=awtplus-awtminus;
+		awt/=n;
+		awt/=10;
+		System.out.println("AWT is :"+awt);
+	}
+	int shortprocess(int[] bt,int[] at,int n,int tm,int[] awtkaliya)
+	{
+		int small=0;
+		for(int i=0;i<n-1;i++)
+		{
+			if(bt[i]<bt[i+1])
+			{
+				small=bt[i+1];
+			}
+		}
+		int j=0;
+		for(int i=0;i<n;i++)
+		{
+				if(small>=bt[i]&&at[i]<=tm&&bt[i]!=0)
+				{
+					small=bt[i];
+					j=i;
+				}	
+		}
+		return j;
+	}
+	void sort(int[] bt,int[] at,int n,String[] process)
+	{
+		int temp,temp1,sat,bat;
+		String stemp;
+		sat=bt[0];
+		int sat1=bt[0];
+		int bat1=at[0];
+		int t1,t2;
+		for(int i=0;i<n;i++)
+		{	for(int j=0;j<n;j++)
+			{
+			if(at[i]==0)
+			{
+							t1=at[j];
+							t2=bt[j];
+							stemp=process[j];
+							at[j]=at[i];
+							bt[j]=bt[i];
+							process[j]=process[i];
+							process[i]=stemp;
+							at[i]=t1;
+							bt[i]=t2;
+			}
+		}
+	}
+		for(int i=1;i<n;i++)
+		{
+			for(int j=1;j<n;j++)
+				{
+					if(at[i]<at[j])
+						{   temp1=at[j];
+							temp=bt[j];
+							stemp=process[j];
+							at[j]=at[i];
+							bt[j]=bt[i];
+							process[j]=process[i];
+							process[i]=stemp;
+							at[i]=temp1;
+							bt[i]=temp;
+						}
+						}
+		}
+	
+}
+
+}
